@@ -1,7 +1,8 @@
 # Make sure that you are not connected to VPN when building this image
 
 FROM ubuntu:20.04
-
+# something about running source commands
+SHELL ["/bin/bash", "-c"] 
 # Force silent installs with apt
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -19,10 +20,10 @@ RUN apt-get update -y && \
     apt-get install -y git curl wget unzip groff jq iputils-ping net-tools dnsutils nano
 
 # Install node js and npm
-RUN curl -sL https://deb.nodesource.com/setup_16.x -o nodesource_setup.sh
-RUN bash nodesource_setup.sh
-RUN apt-get install -y nodejs
-RUN npm install -g npm@latest
+RUN curl -sL https://deb.nodesource.com/setup_16.x -o nodesource_setup.sh && \
+    bash nodesource_setup.sh && \
+    apt-get install -y nodejs && \
+    npm install -g npm@latest
 
 # Install aws cli
 RUN wget https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -O awscli.zip && \
@@ -31,7 +32,7 @@ RUN wget https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -O awscli.zip 
     ./aws/install && \
     rm -rf ./aws*
 
-# # Install aws2-wrap
+# Install aws2-wrap
 RUN apt-get update -y && \
     apt-get install -y pip && \
     pip install aws2-wrap
@@ -59,13 +60,13 @@ RUN curl -fsSL https://baltocdn.com/helm/signing.asc | apt-key add - && \
 # Install GCloud SDK 
 RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] http://packages.cloud.google.com/apt cloud-sdk main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list && curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key --keyring /usr/share/keyrings/cloud.google.gpg  add - && apt-get update -y && apt-get install google-cloud-sdk -y
 
-# Install flexera/helm-s3-plugin
-## Private repo and so we cannot pull package strait from GitHub.com. COPY package from local machine for now
-# ADD flexera-helm-s3-plugin.zip /tmp/helm-s3.zip
-# RUN mkdir -p /root/.local/share/helm &&\
-#     unzip /tmp/helm-s3.zip -d /root/.local/share/helm && \
-#     rm /tmp/helm-s3.zip && \
-#     helm plugin install /root/.local/share/helm/helm-s3-plugin-main/
+# Install OpenJDK 11
+RUN apt-get update -y && \
+    apt-get install -y openjdk-11-jre-headless
+
+# Install Maven
+RUN apt-get update -y &&\
+    apt-get install -y maven
 
 # Install vault
 RUN curl -fsSL https://apt.releases.hashicorp.com/gpg | apt-key add - && \
@@ -77,7 +78,7 @@ RUN curl -fsSL https://apt.releases.hashicorp.com/gpg | apt-key add - && \
 RUN apt-get install --reinstall -y vault
 
 # Install istioctl
-# https://github.com/istio/istio/releases
+https://github.com/istio/istio/releases
 ENV ISTIO_VERSION="1.11.2"
 RUN curl -L https://istio.io/downloadIstio | ISTIO_VERSION=${ISTIO_VERSION} sh - && \
     mv ./istio-${ISTIO_VERSION}/bin/istioctl /usr/local/bin/ && \
@@ -98,11 +99,8 @@ RUN mkdir -p $GOPATH
 # Install go modules required by VS Code extension golang.go
 RUN go get -v golang.org/x/tools/gopls
 
-# Add Codespaces Force Git HTTP
-# RUN echo 'if [ ! -z "$CODESPACE_NAME" ]; then git config --global --add url.https://github.com/flexera/.insteadof ssh://git@github.com/flexera/; fi' | tee /etc/profile.d/codespaces-force-git-http.sh && \
-#     chmod +x /etc/profile.d/codespaces-force-git-http.sh
-
 # Install k9s
+# K9s is a shell tool that simplifies kubernetes operator tasks
 RUN wget https://github.com/derailed/k9s/releases/download/v0.24.15/k9s_Linux_x86_64.tar.gz -O k9s.tar.gz && \
     tar -zxvf k9s.tar.gz && \
     chmod +x ./k9s && \
@@ -111,6 +109,8 @@ RUN wget https://github.com/derailed/k9s/releases/download/v0.24.15/k9s_Linux_x8
 
 WORKDIR workspace/
 
+# Expose port if you want to test local services
+# You can change the port to something other than 8080
 EXPOSE 8080
 
 # Cleanup
