@@ -3,9 +3,6 @@
 local development container based on Ubuntu
 
 ## How to use
-
-<strong>Turn off VPN before building this image</strong>
-
 1. Clone repo and cd into root dir
 2. Run `docker build -t <tag-name> .` to build the image
 3. Run `docker-compose up -d ` to start the container
@@ -22,3 +19,8 @@ function updc() { cd ~/workspace/docker-dev; docker-compose up -d; }
 function downdc() { cd ~/workspace/docker-dev; docker-compose down; }
 function dintoc() { docker exec -it <container-name> bash; }
 ```
+
+## Known Issues
+<strong>Turn off VPN before building this image</strong>
+<strong>On windows with WSL2, you may need to run `docker exec -it <container-name> bash;` with a winpty prefix like this: `winpty docker exec -it <container-name> bash;` </strong>
+
