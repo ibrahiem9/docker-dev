@@ -21,6 +21,5 @@ function dintoc() { docker exec -it <container-name> bash; }
 ```
 
 ## Known Issues
-<strong>Turn off VPN before building this image</strong>
-<strong>On windows with WSL2, you may need to run `docker exec -it <container-name> bash;` with a winpty prefix like this: `winpty docker exec -it <container-name> bash;` </strong>
-
+1.Turn off VPN before building this image.
+2.On windows with WSL2, you may need to run `docker exec -it <container-name> bash;` with a winpty prefix like this: `winpty docker exec -it <container-name> bash;`
