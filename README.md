@@ -15,8 +15,8 @@ You can also opt to add aliases that will allow you to start or shut down the co
 Add the following lines of code to `~/.bash_profile` or `~/.zshrc`
 
 ```bash
-function updc() { cd ~/workspace/docker-dev; docker-compose up -d; }
-function downdc() { cd ~/workspace/docker-dev; docker-compose down; }
+function updc() { current_dir=$PWD; cd ~/workspace/docker-dev; docker-compose up -d; cd current_dir; }
+function downdc() { current_dir=$PWD; cd ~/workspace/docker-dev; docker-compose down; cd current_dir; }
 function dintoc() { docker exec -it <container-name> bash; }
 ```
 
