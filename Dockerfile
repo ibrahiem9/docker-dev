@@ -113,6 +113,11 @@ RUN wget https://github.com/derailed/k9s/releases/download/v0.24.15/k9s_Linux_x8
     mv ./k9s /usr/local/bin/k9s && \
     rm -rf ./k9s*
 
+# Install Python 3 and Pip
+RUN apt-get update -y && \
+    apt-get install python3 -y && \
+    apt-get install python3-pip -y
+
 WORKDIR workspace/
 
 # Expose port if you want to test local services
