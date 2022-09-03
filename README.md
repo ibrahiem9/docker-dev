@@ -23,4 +23,3 @@ function dintoc() { docker exec -it <container-name> bash; }
 ## Known Issues
 1. Turn off VPN before building this image.
 2. On windows with WSL2, you may need to run `docker exec -it <container-name> bash;` with a winpty prefix like this: `winpty docker exec -it <container-name> bash;`
-3. Building this image on M1 Apple Silicon leads to some issues: https://github.com/ibrahiem96/docker-dev/issues/1#issue-1331092427
