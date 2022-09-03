@@ -79,7 +79,7 @@ RUN apt-get install --reinstall -y vault
 
 # Install istioctl
 # https://github.com/istio/istio/releases
-ENV ISTIO_VERSION="1.11.2"
+ENV ISTIO_VERSION="1.15.0"
 RUN curl -L https://istio.io/downloadIstio | ISTIO_VERSION=${ISTIO_VERSION} sh - && \
     mv ./istio-${ISTIO_VERSION}/bin/istioctl /usr/local/bin/ && \
     rm -rf ./istio-*
