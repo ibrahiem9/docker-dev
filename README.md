@@ -1,6 +1,6 @@
 # docker-dev
 
-local development container based on Ubuntu
+local development container on Ubuntu Linux AMD64
 
 ## How to use
 1. Clone repo and cd into root dir
