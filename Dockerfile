@@ -86,7 +86,7 @@ RUN curl -L https://istio.io/downloadIstio | ISTIO_VERSION=${ISTIO_VERSION} sh -
 
 # Install golang
 # https://github.com/golang/go/releases
-ENV GO_VERSION="1.16.7"
+ENV GO_VERSION="1.19"
 RUN wget -q https://golang.org/dl/go${GO_VERSION}.linux-amd64.tar.gz -O /tmp/go.tar.gz && \
     tar -zxvf /tmp/go.tar.gz -C /tmp && \
     chmod +x /tmp/go/bin/* && \
