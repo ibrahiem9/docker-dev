@@ -20,7 +20,7 @@ RUN apt-get update -y && \
     apt-get install -y git curl wget unzip groff jq iputils-ping net-tools dnsutils nano software-properties-common build-essential
 
 # Install node js and npm
-RUN curl -sL https://deb.nodesource.com/setup_16.x -o nodesource_setup.sh && \
+RUN curl -sL https://deb.nodesource.com/setup_18.x -o nodesource_setup.sh && \
     bash nodesource_setup.sh && \
     apt-get install -y nodejs && \
     npm install -g npm@latest
