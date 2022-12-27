@@ -8,7 +8,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 # Update and upgrade base packages
 RUN apt-get update -y && \
-    apt-get upgrade -y
+    apt-get upgrade -y && \
+    apt-get install -y --no-install-recommends apt-utils
 
 # Install common packages that are available via native package manager
 #   - curl, wget, unzip required for package installs
