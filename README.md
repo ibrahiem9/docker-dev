@@ -12,7 +12,7 @@ local development container on Ubuntu Linux AMD64
 ## Optional
 You can also opt to add aliases that will allow you to start or shut down the container from anywhere
 
-Add the following lines of code to `~/.bash_profile` or `~/.zshrc`
+Add the following lines of code to `~/.bash_profile`, `~/.bashrc`, or `~/.zshrc`
 
 ```bash
 function updc() { current_dir=$PWD; cd ~/workspace/docker-dev; docker-compose up -d; cd $current_dir; }
