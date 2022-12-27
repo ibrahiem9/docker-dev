@@ -47,10 +47,8 @@ RUN apt-get install -y gnupg software-properties-common && \
 
 # Install kubectl
 RUN apt-get install -y apt-transport-https ca-certificates && \
-    curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
-    apt-add-repository "deb [arch=amd64] https://apt.kubernetes.io/ kubernetes-xenial main" && \
-    apt-get update -y && \
-    apt-get install -y kubectl
+    curl -LO https://dl.k8s.io/release/v1.25.0/bin/linux/amd64/kubectl && \
+    install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 
 # Install helm
 RUN curl -fsSL https://baltocdn.com/helm/signing.asc | apt-key add - && \
@@ -80,7 +78,7 @@ RUN apt-get install --reinstall -y vault
 
 # Install istioctl
 # https://github.com/istio/istio/releases
-ENV ISTIO_VERSION="1.15.0"
+ENV ISTIO_VERSION="1.16.0"
 RUN curl -L https://istio.io/downloadIstio | ISTIO_VERSION=${ISTIO_VERSION} sh - && \
     mv ./istio-${ISTIO_VERSION}/bin/istioctl /usr/local/bin/ && \
     rm -rf ./istio-*
