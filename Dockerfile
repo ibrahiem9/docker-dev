@@ -18,7 +18,7 @@ RUN apt-get update -y && \
 #   - iputils-ping net-tools dnsutils helpful for debug/troubleshooting
 #   - nano preferred as text editor
 RUN apt-get update -y && \
-    apt-get install -y git curl wget unzip groff jq iputils-ping net-tools dnsutils nano software-properties-common build-essential
+    apt-get install -y git curl wget unzip groff jq iputils-ping net-tools dnsutils nano software-properties-common build-essential mkdocs
 
 # Install node js and npm
 RUN curl -sL https://deb.nodesource.com/setup_18.x -o nodesource_setup.sh && \
