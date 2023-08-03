@@ -1,6 +1,6 @@
 # Make sure that you are not connected to VPN when building this image
 
-FROM --platform=linux/amd64 ubuntu:23.04
+FROM --platform=linux/amd64 ubuntu:22.04
 # something about running source commands
 SHELL ["/bin/bash", "-c"] 
 # Force silent installs with apt
