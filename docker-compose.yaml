@@ -2,6 +2,7 @@ version: '3'
 
 services:
   workspace:
+    platform: linux/amd64
     image: ubuntu-local # this is the image name, you can replace it with whatever name you tagged your image with during docker build
     ports:
       - 8080:8080
