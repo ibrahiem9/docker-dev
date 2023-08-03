@@ -16,7 +16,7 @@ RUN apt-get update -y && \
 #   - groff required for aws cli help docs
 #   - jq required for `data.external.account_tags`
 #   - iputils-ping net-tools dnsutils helpful for debug/troubleshooting
-#   - nano preferred as text editor
+#   - vim preferred as text editor
 RUN apt-get update -y && \
     apt-get install -y vim git curl wget unzip groff jq iputils-ping net-tools dnsutils software-properties-common build-essential mkdocs
 
