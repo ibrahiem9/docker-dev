@@ -96,7 +96,7 @@ RUN wget -q https://golang.org/dl/go${GO_VERSION}.linux-amd64.tar.gz -O /tmp/go.
 ENV GOPATH=/root/go
 RUN mkdir -p $GOPATH
 # Install go modules required by VS Code extension golang.go
-RUN go get -v golang.org/x/tools/gopls
+# RUN go get -v golang.org/x/tools/gopls
 
 # Install Rust
 RUN apt-get update -y && \
