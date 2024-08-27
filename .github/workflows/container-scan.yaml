@@ -4,10 +4,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Build the container image
         run: docker build . --file Dockerfile --tag localbuild/testimage:latest
-      - uses: anchore/scan-action@v3
+      - uses: anchore/scan-action@v4
         with:
           image: "localbuild/testimage:latest"
           fail-build: false
