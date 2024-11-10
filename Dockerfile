@@ -1,6 +1,6 @@
 # Make sure that you are not connected to VPN when building this image
 
-FROM --platform=linux/amd64 ubuntu:22.04
+FROM --platform=linux/amd64 ubuntu:24.04
 # something about running source commands
 SHELL ["/bin/bash", "-c"] 
 # Force silent installs with apt
@@ -20,8 +20,14 @@ RUN apt-get update -y && \
 RUN apt-get update -y && \
     apt-get install -y vim git curl wget unzip groff jq iputils-ping net-tools dnsutils software-properties-common build-essential mkdocs
 
+# Install Python 3 and Pip
+RUN apt-get update -y && \
+    apt-get install python3 -y && \
+    apt-get install python3-full -y && \
+    apt-get install python3-pip -y
+
 # Install node js and npm
-RUN curl -sL https://deb.nodesource.com/setup_18.x -o nodesource_setup.sh && \
+RUN curl -sL https://deb.nodesource.com/setup_20.x -o nodesource_setup.sh && \
     bash nodesource_setup.sh && \
     apt-get install -y nodejs && \
     npm install -g npm@latest
@@ -32,11 +38,6 @@ RUN wget https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -O awscli.zip 
     rm awscli.zip && \
     ./aws/install && \
     rm -rf ./aws*
-
-# Install aws2-wrap
-RUN apt-get update -y && \
-    apt-get install -y pip && \
-    pip install aws2-wrap
 
 # Install terraform
 RUN apt-get install -y gnupg software-properties-common && \
@@ -78,7 +79,7 @@ RUN apt-get install --reinstall -y vault
 
 # Install istioctl
 # https://github.com/istio/istio/releases
-ENV ISTIO_VERSION="1.16.0"
+ENV ISTIO_VERSION="1.24.0"
 RUN curl -L https://istio.io/downloadIstio | ISTIO_VERSION=${ISTIO_VERSION} sh - && \
     mv ./istio-${ISTIO_VERSION}/bin/istioctl /usr/local/bin/ && \
     rm -rf ./istio-*
@@ -111,11 +112,6 @@ RUN wget https://github.com/derailed/k9s/releases/download/v0.24.15/k9s_Linux_x8
     chmod +x ./k9s && \
     mv ./k9s /usr/local/bin/k9s && \
     rm -rf ./k9s*
-
-# Install Python 3 and Pip
-RUN apt-get update -y && \
-    apt-get install python3 -y && \
-    apt-get install python3-pip -y
 
 WORKDIR workspace/
 
