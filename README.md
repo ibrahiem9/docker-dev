@@ -1,11 +1,11 @@
 # docker-dev
 
-local development container on Ubuntu Linux AMD64
+local development container on Ubuntu Linux (AMD64 or ARM64)
 
 ## How to use
 1. Clone repo and cd into root dir
 2. Run `docker build -t <tag-name> .` to build the image
-3. Run `docker-compose up -d ` to start the container
+3. Run `docker-compose up -d ` to start the container (if you want to run on an ARM platform, be sure to change the platform in the docker-compose file)
 4. Run `docker exec -it <container-name> bash` to exec into container
 5. Run `docker-compose down` to shut down the container
 
